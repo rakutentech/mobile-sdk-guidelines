@@ -23,7 +23,8 @@ These are common guidelines for Rakuten teams building Android SDKs/libraries.
 * [Continuous Integration & Deployment](#continuous-integration-&-deployment)
 
 ### Project files & Source Control Management
-* MUST be under source control management. RECOMMENDED source control management is git.
+* MUST be under source control management (SCM). RECOMMENDED source control management is git
+* If you intend your source repo to be public ensure you have received the necessary L3/L2 manager and legal department approval
 * MUST use a .gitignore configuration
 * MUST prefix all exported resources (layout files, xml files, drawable files, color ids, dimension ids, string ids, etc.)  with <shortname> + "_" (e.g. "sug_" for a Suggestion Module) using [resourcePrefix](https://google.github.io/android-gradle-dsl/current/com.android.build.gradle.LibraryExtension.html#com.android.build.gradle.LibraryExtension:resourcePrefix) in the gradle build
 * SHOULD follow the standard project layout for [Android](https://developer.android.com/studio/projects) or for [Java](https://docs.gradle.org/current/userguide/java_plugin.html#sec:java_project_layout) projects respectively 
@@ -31,8 +32,8 @@ These are common guidelines for Rakuten teams building Android SDKs/libraries.
     * Rationale: encoding version information (e.g. alpha/core/stable) in the repository breaks links and integration when a module changes
     * Exceptions: existing modules that already carry additional information in the repository name & renaming would break too many existing integrations.
 * MUST NOT restrict read access to source code repositories unnecessarily
-* For internally hosted code in gitpub → add the gitpub user mailing list with read access
-* For open source projects → public repo on github 
+* For internally hosted code → add the appropriate mailing list with read access
+* For open source projects → public repo on GitHub 
 
 ### Build
 * MUST use [gradle](https://docs.gradle.org/current/userguide/userguide.html) with [gradle wrapper](https://docs.gradle.org/current/userguide/gradle_wrapper.html) to build Android library or Java library
@@ -40,8 +41,8 @@ These are common guidelines for Rakuten teams building Android SDKs/libraries.
 * MUST have consistent minSdk and supportLib versions with other SDKs
     * SHOULD use [shared build configuration](https://github.com/rakutentech/android-buildconfig) for consistent version with other SDKs/libraries
     * MAY use manual configuration with values (same as in [shared build configuration](https://github.com/rakutentech/android-buildconfig)), if so 
-        * SHOULD use minSdk 15
-        * MUST use supportLibs version 26.0.0
+        * SHOULD use minSdk 21
+        * SHOULD use latest versions of [Android X](https://developer.android.com/jetpack/androidx) libraries (if required)
 * MUST NOT depend on locally stored libraries 
 * MUST NOT use wildcards (+) for exported dependencies, i.e. dependencies that SDK clients will inherit
     * Example 1: using the [auto value](https://github.com/google/auto/tree/master/value) annotation processor in version 1.4-rc1 is allowed because it is not exported to SDK clients
@@ -51,7 +52,7 @@ These are common guidelines for Rakuten teams building Android SDKs/libraries.
 
 #### Production Code
 
-* MUST use Kotlin or Java
+* MUST use Kotlin or Java. Kotlin is RECOMMENDED
 * MAY use Java 8 language features under these constraints:
     * MUST be compatible with application projects that do not use [desugar](https://developer.android.com/studio/write/java8-support.html)
     * MAY rely on [retrolambda](https://github.com/orfjackal/retrolambda)
@@ -66,9 +67,9 @@ These are common guidelines for Rakuten teams building Android SDKs/libraries.
 
 ### Coding Style
 
-* Code MUST follow the SDK Kotlin Style Guide and Java Style Guide
+* Code MUST follow the [SDK Kotlin Style Guide](#sdk-kotlin-style-guide) and [SDK Java Style Guide](#sdk-java-style-guide)
 * SHOULD use static code analysis, such as [detekt](https://github.com/arturbosch/detekt)
-* Android code MUST use the [Android Support Annotations](http://tools.android.com/tech-docs/support-annotations) for public APIs 
+* Android code MUST use the [Android Support Annotations](https://developer.android.com/studio/write/annotations) for public APIs 
 * Non-Android Java code MUST use the [Jetbrains Annotations](https://www.jetbrains.com/help/idea/annotating-source-code.html) for public APIs
 
 #### SDK Kotlin Style Guide
@@ -100,6 +101,7 @@ These are common guidelines for Rakuten teams building Android SDKs/libraries.
 #### Best Practices
 * Simple Configurations SHOULD be [declarable in manifest and read in a (fake) ContentProvider](https://firebase.googleblog.com/2016/12/how-does-firebase-initialize-on-android.html)
 * Complex Configurations MUST use the [builder pattern](https://en.wikipedia.org/wiki/Builder_pattern) with [value objects](https://en.wikipedia.org/wiki/Value_object) for configuration values
+    * Exception: When using Kotlin [named arguments](https://kotlinlang.org/docs/reference/functions.html#named-arguments) and [default arguments](https://kotlinlang.org/docs/reference/functions.html#default-arguments)
 
 ### Testing
 

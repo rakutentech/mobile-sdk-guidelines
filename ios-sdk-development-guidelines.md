@@ -25,14 +25,16 @@ These are common guidelines for Rakuten teams building iOS SDKs/libraries.
 
 ### Project Files & Source Control Management
 
-* MUST be under source control management such as internal GitPub or Github Enterprise. RECOMMENDED source control management is git
-* SHOULD use GitPub or Github Enterprise for internal-only libraries
-* If you intend your source repo to be public ensure you have received the necessary management and legal department permissions to open source your library. If unsure check the Open Source Initiative page on DRC
+* MUST be under source control management (SCM). RECOMMENDED source control tool is git
+* If you intend your source repo to be public ensure you have received the necessary L3/L2 manager and legal department approval
 * MUST use a .gitignore configuration
 * RECOMMEND to not have source file header comment blocks (such as the Xcode default header comment) as these easily get out of date and the information such as author/version of commits is tracked in SCM
 * Source code repositories SHOULD follow the naming convention [platform]-[library name], e.g. ios-perftracking, swift-datastore, ios-analytics
     * Rationale: encoding version information (e.g. alpha/core/stable) in the repository breaks links and integration when a module changes
     * Exceptions: existing modules that already carry additional information in the repository name & renaming would break too many existing integrations
+* MUST NOT restrict read access to source code repositories unnecessarily
+* For internally hosted code → add the appropriate mailing list with read access
+* For open source projects → public repo on GitHub     
 
 ### Build
 
@@ -43,20 +45,20 @@ These are common guidelines for Rakuten teams building iOS SDKs/libraries.
 * Xcode sample project MAY be separate from the unit test project and sample project SHOULD pull the module's source from a local Podspec path reference
 * Xcode project SHOULD build using the latest version of Xcode and the iOS SDK with no warnings
 
-### Programming language
+### Programming Language
 
 #### Production Code:
-* SHOULD use Swift or Objective-C
-    * Swift is preferred
+* MUST use Swift or Objective-C
+    * Swift is RECOMMENDED
     * If the SDK needs to execute code before the application is launched you SHOULD use Objective-C (e.g. `+ (void)load`) for at least that part of the code. This is because Swift [does not have](http://jordansmith.io/handling-the-deprecation-of-initialize/) reliable static initializers
 * MAY use C/C++/other languages when necessary
 
 #### Supporting Code:
 * SHOULD use Swift or Objective-C for test code
-* SHOULD use fastlane (Ruby) for automation scripts but MAY use other languages
+* SHOULD use [fastlane](https://docs.fastlane.tools/) (Ruby) for automation but MAY use other languages
 * MAY use any language/framework/tool for other supporting code
 
-#### Objective-C best practices
+#### Objective-C Best Practices
 
 * If the feature your module provides only works with more recent versions of iOS you MUST do proper feature-checking with e.g. `respondsToSelector:` and still target iOS 10.0 (or more recent version) for the deployment target.
 * Nullability: MUST use `NS_ASSUME_NONNULL_BEGIN` and `NS_ASSUME_NONNULL_END` in header files, and explicitly add nullable when needed. The `_Nullable` style syntax is preferred to `__nullable`.
@@ -71,13 +73,13 @@ These are common guidelines for Rakuten teams building iOS SDKs/libraries.
 ### Coding Style
 
 * New modules MUST follow a style guide such as:
-    * Your team's internal guide - however it is recommended to enforce this via a tool such as [SwiftLint](https://github.com/realm/SwiftLint) (using a configuration such as [this one](https://github.com/rakutentech/ios-buildconfig/blob/master/.swiftlint.yml)) or the maintenance overhead in PR reviews can be large
+    * Your team's internal guide - however it is RECOMMENDED to enforce this via tooling such as [SwiftLint](https://github.com/realm/SwiftLint) (using a configuration such as [this one](https://github.com/rakutentech/ios-buildconfig/blob/master/.swiftlint.yml)) or the maintenance overhead in PR reviews can be large
     * Ray Wenderlich's [Swift](https://github.com/raywenderlich/swift-style-guide) or [Objective-C](https://github.com/raywenderlich/objective-c-style-guide) guides
     * [GitHub](https://github.com/github/swift-style-guide) Swift style guide
 * Existing modules SHOULD follow a coding style guide. Always strive for **consistency** within a project's codebase
 * SHOULD use tools such as clang-format, SwiftLint, and oclint to minimise errors and minimise debates and formatting fix-up commits in PRs. It is RECOMMENDED to integrate these tools with the CI workflow as pre-commit git hooks
 
-### Library design
+### Library Design
 
 #### Limit impact on consumers
 * SHOULD limit dependencies as much as possible primarily due to risk of version clashes e.g. SHOULD NOT depend on external networking library but also because the dependency may stop being maintained
