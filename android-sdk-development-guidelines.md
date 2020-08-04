@@ -99,9 +99,11 @@ These are common guidelines for Rakuten teams building Android SDKs/libraries.
 * SHOULD use RestrictTo annotation on classes that are internal to the library
 
 #### Best Practices
-* Simple Configurations SHOULD be [declarable in manifest and read in a (fake) ContentProvider](https://firebase.googleblog.com/2016/12/how-does-firebase-initialize-on-android.html)
+* Simple Configurations SHOULD be [declarable in manifest and read in a (fake) ContentProvider](https://firebase.googleblog.com/2016/12/how-does-firebase-initialize-on-android.html) and be automatically initialized (if that fits with your library design)
+    * SHOULD NOT require manual initialization such as by overriding the `Application` class or depending on a host app trigger
 * Complex Configurations MUST use the [builder pattern](https://en.wikipedia.org/wiki/Builder_pattern) with [value objects](https://en.wikipedia.org/wiki/Value_object) for configuration values
     * Exception: When using Kotlin [named arguments](https://kotlinlang.org/docs/reference/functions.html#named-arguments) and [default arguments](https://kotlinlang.org/docs/reference/functions.html#default-arguments)
+* For better testability of your library it is RECOMMENDED to use [dependency injection](https://en.wikipedia.org/wiki/Dependency_injection)    
 
 ### Testing
 
@@ -126,6 +128,7 @@ These are common guidelines for Rakuten teams building Android SDKs/libraries.
 
 * MUST follow [Semantic Versioning](http://semver.org/spec/v2.0.0.html)
 * MUST tag source control management revision/commit that is published
+    * RECOMMENDED: Use [gradle-versions-plugin](https://github.com/ben-manes/gradle-versions-plugin) for automated versioning by git tag
 * We consider 0.x versions alpha and  1.0 and above stable
 
 ### Publishing
