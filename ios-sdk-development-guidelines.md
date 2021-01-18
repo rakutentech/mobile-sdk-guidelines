@@ -40,7 +40,7 @@ These are common guidelines for Rakuten teams building iOS SDKs/libraries.
 
 * SHOULD be built from a [CocoaPods](https://guides.cocoapods.org/) Podspec (or use a similar package manager like Carthage or SPM)
 * SHOULD use [fastlane](https://docs.fastlane.tools/) to automate tasks and MAY use our [shared build configuration](https://github.com/rakutentech/ios-buildconfig) to help with setup and maintain consistency
-* SHOULD target iOS 10.0 and above, MAY target a more recent iOS version
+* SHOULD target iOS 11.0 and above, MAY target a more recent iOS version
 * Xcode unit test project SHOULD pull the module's source from a local Podspec path reference
 * Xcode sample project MAY be separate from the unit test project and sample project SHOULD pull the module's source from a local Podspec path reference
 * Xcode project SHOULD build using the latest version of Xcode and the iOS SDK with no warnings
