@@ -44,6 +44,7 @@ These are common guidelines for Rakuten teams building iOS SDKs/libraries.
 * Xcode unit test project SHOULD pull the module's source from a local Podspec path reference
 * Xcode sample project MAY be separate from the unit test project and sample project SHOULD pull the module's source from a local Podspec path reference
 * Xcode project SHOULD build using the latest version of Xcode and the iOS SDK with no warnings
+* MUST have a sample app - a minimal app that integrates the SDK and shows how to use the SDK features. It SHOULD be written in Swift.
 
 ### Programming Language
 

@@ -47,6 +47,7 @@ These are common guidelines for Rakuten teams building Android SDKs/libraries.
 * MUST NOT use wildcards (+) for exported dependencies, i.e. dependencies that SDK clients will inherit
     * Example 1: using the [auto value](https://github.com/google/auto/tree/master/value) annotation processor in version 1.4-rc1 is allowed because it is not exported to SDK clients
     * Example 2: using [okhttp](https://github.com/square/okhttp) compile/implementatino dependency in version 3.4.0-RC1 is not allowed because that dependency will be imposed onto SDK clients
+* MUST have a sample app - a minimal app that integrates the SDK and shows how to use the SDK features. It SHOULD be written in Kotlin.    
 
 ### Programming Language
 
